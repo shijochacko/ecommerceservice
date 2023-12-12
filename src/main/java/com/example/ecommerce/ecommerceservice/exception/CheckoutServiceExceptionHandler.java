@@ -3,6 +3,7 @@ package com.example.ecommerce.ecommerceservice.exception;
 import com.example.ecommerce.ecommerceservice.service.CheckoutService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.*;
@@ -19,13 +20,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestControllerAdvice
+@Slf4j
 public class CheckoutServiceExceptionHandler extends ResponseEntityExceptionHandler {
-    private static final Logger LOG = LoggerFactory.getLogger(CheckoutService.class);
+
 
     @ExceptionHandler(ApiException.class)
     public ResponseEntity<Object> handleApiException(
             ApiException ex, HttpServletRequest request) {
-        LOG.error("[Checkout Api Exception Handling] CheckoutServiceExeption request path : {}, exception information: {}", request.getRequestURI(), ex.getErrorMessage());
+        log.error("[Checkout Api Exception Handling] CheckoutServiceExeption request path : {}, exception information: {}", request.getRequestURI(), ex.getErrorMessage());
         List<String> details = new ArrayList<>();
         details.add(ex.getErrorCode());
         details.add(ex.getErrorMessage());
@@ -37,7 +39,7 @@ public class CheckoutServiceExceptionHandler extends ResponseEntityExceptionHand
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ResponseEntity<Object> handleAccessDeniedException(
             Exception ex, HttpServletRequest request) {
-        LOG.error("[Checkout Api Exception Handling] handleAccessDeniedException request path : {}, exception information: {}", request.getRequestURI(), ex.getCause());
+        log.error("[Checkout Api Exception Handling] handleAccessDeniedException request path : {}, exception information: {}", request.getRequestURI(), ex.getCause());
         List<String> details = new ArrayList<>();
         details.add(ex.getLocalizedMessage());
         details.add(request.getRequestURI());
@@ -46,7 +48,7 @@ public class CheckoutServiceExceptionHandler extends ResponseEntityExceptionHand
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<Object> handleRuntimeExeption(
             Exception ex, HttpServletRequest request) {
-        LOG.error("[Checkout Api Exception Handling] RuntimeExeption request path : {}, exception information: {}", request.getRequestURI(), ex.getCause());
+        log.error("[Checkout Api Exception Handling] RuntimeExeption request path : {}, exception information: {}", request.getRequestURI(), ex.getCause());
         List<String> details = new ArrayList<>();
         details.add(ex.getLocalizedMessage());
         details.add(request.getRequestURI());
@@ -57,7 +59,7 @@ public class CheckoutServiceExceptionHandler extends ResponseEntityExceptionHand
 @Nullable
 protected ResponseEntity<Object> handleHandlerMethodValidationException(
         HandlerMethodValidationException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
-        LOG.error("[Checkout Api Exception Handling] IllegalArgumentException  exception information: {}", ex.getCause());
+        log.error("[Checkout Api Exception Handling] IllegalArgumentException  exception information: {}", ex.getCause());
     List<String> details = new ArrayList<>();
     details.add("Invalid Input");
     details.add(ex.getMessage());

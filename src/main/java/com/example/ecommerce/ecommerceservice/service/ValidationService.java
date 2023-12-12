@@ -1,6 +1,7 @@
 package com.example.ecommerce.ecommerceservice.service;
 
 import com.example.ecommerce.ecommerceservice.exception.ApiException;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -12,8 +13,8 @@ import java.util.List;
 import static java.util.Objects.isNull;
 
 @Service
+@Slf4j
 public class ValidationService {
-    private static final Logger LOG = LoggerFactory.getLogger(ValidationService.class);
     public static final String NO_PRODUCT_DATA_FOUND = "No product data found";
     public static final String NO_MATCHING_DATA_FOUND_FOR_PRODUCT = "No matching data found for product";
     public static final String INVALID_INPUT = "Invalid Input";
@@ -47,7 +48,7 @@ public class ValidationService {
 
     private void throwValidationException(List<String> missingProducts) {
 
-        LOG.error(NO_MATCHING_DATA_FOUND_FOR_PRODUCT + " {}", missingProducts);
+        log.error(NO_MATCHING_DATA_FOUND_FOR_PRODUCT + " {}", missingProducts);
 
         throw new ApiException(INVALID_INPUT,
                 String.format(NO_MATCHING_DATA_FOUND_FOR_PRODUCT+" %s", missingProducts));

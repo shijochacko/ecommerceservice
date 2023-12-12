@@ -1,18 +1,16 @@
 package com.example.ecommerce.ecommerceservice.service;
 
 import com.example.ecommerce.ecommerceservice.model.Product;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
 @Service
+@RequiredArgsConstructor
 public class PriceEngineService {
     private final CachingService cachingService;
     public static final String PRODUCT_CACHE = "PRODUCT_CACHE";
-
-    public PriceEngineService(CachingService cachingService) {
-        this.cachingService = cachingService;
-    }
 
     public double calculateTotalPrice(Map<String, Long> checkedOutProductMap) {
 

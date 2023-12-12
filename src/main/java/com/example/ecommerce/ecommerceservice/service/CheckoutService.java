@@ -1,5 +1,7 @@
 package com.example.ecommerce.ecommerceservice.service;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,19 +15,13 @@ import static java.util.stream.Collectors.counting;
 import static java.util.stream.Collectors.groupingBy;
 
 @Service
+@Slf4j
+@RequiredArgsConstructor
 public class CheckoutService {
 
-    private static final Logger LOG = LoggerFactory.getLogger(CheckoutService.class);
-
     private final PriceEngineService priceEngineService;
-
-    @Autowired
-    public CheckoutService(PriceEngineService priceEngineService) {
-        this.priceEngineService = priceEngineService;
-    }
-
     public double calculateTotalCost(List<String> pricingProducts) {
-
+        log.info("Inside Calculate Total Cost");
         Map<String, Long> pricingProductMap = groupCheckoutProducts(pricingProducts);
         return priceEngineService.calculateTotalPrice(pricingProductMap);
 

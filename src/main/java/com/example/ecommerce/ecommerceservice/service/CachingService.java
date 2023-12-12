@@ -2,6 +2,8 @@ package com.example.ecommerce.ecommerceservice.service;
 
 import com.example.ecommerce.ecommerceservice.model.Product;
 import com.example.ecommerce.ecommerceservice.repository.ProductRepository;
+import jakarta.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
@@ -14,16 +16,15 @@ import static java.util.Objects.isNull;
 
 @EnableCaching
 @Component
+@RequiredArgsConstructor
 public class CachingService {
 
     public static final String PRODUCT_CACHE = "PRODUCT_CACHE";
     private final CacheManager cacheManager;
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
-    @Autowired
-    public CachingService(CacheManager cacheManager, ProductRepository productRepository) {
-        this.cacheManager = cacheManager;
-        this.productRepository = productRepository;
+    @PostConstruct
+    public void intit(){
         loadProductsToCache();
     }
 

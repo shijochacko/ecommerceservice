@@ -4,6 +4,7 @@ import com.example.ecommerce.ecommerceservice.dto.CheckOutResponse;
 import com.example.ecommerce.ecommerceservice.service.CheckoutService;
 import com.example.ecommerce.ecommerceservice.service.ValidationService;
 import jakarta.validation.constraints.NotEmpty;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,16 +20,11 @@ import static java.math.BigDecimal.ROUND_HALF_UP;
 
 @RestController
 @RequestMapping("/api/v1")
+@RequiredArgsConstructor
 public class CheckoutController {
 
-    private CheckoutService checkoutService;
-    private ValidationService validationService;
-
-    @Autowired
-    public CheckoutController(CheckoutService checkoutService, ValidationService validationService) {
-        this.checkoutService = checkoutService;
-        this.validationService = validationService;
-    }
+    private final CheckoutService checkoutService;
+    private final ValidationService validationService;
 
     @PostMapping(
             path = "/checkout",
