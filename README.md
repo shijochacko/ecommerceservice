@@ -22,6 +22,14 @@ The solution is build using Java Spring, In order to run this application, you n
 To run the individual test cases, use the below command
 ```./gradlew test <testcasename>```
 
+## Running the Application
+To verify the application endpoints use below curl request 
+```
+curl --location 'http://localhost:8080/api/v1/checkout' \
+--header 'Content-Type: application/json' \
+--header 'Cookie: JSESSIONID=009E860A65A32C978B32BF69B0C3F2C0' \
+--data '["0001", "0001", "0001", "0003","0002","0002","0004"]'
+```
 
 ## Approch used to develop application
 
