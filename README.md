@@ -23,15 +23,26 @@ To run the individual test cases, use the below command
 ```./gradlew test <testcasename>```
 
 ## Running the Application
+
+1. Authenticate your self
+Currently for the sample implementation, a pre-defined user been defined.
+
+### Basic Authentication
+```
+curl --location 'http://localhost:8080/user' \--header 'Authorization: Basic <base64 encoded username:password>'
+```   
+
+Fetch the authorization header from response object.
+
 To verify the application endpoints use below curl request 
 ```
 curl --location 'http://localhost:8080/api/v1/checkout' \
 --header 'Content-Type: application/json' \
---header 'Cookie: JSESSIONID=009E860A65A32C978B32BF69B0C3F2C0' \
---data '["0001", "0001", "0001", "0003","0002","0002","0004"]'
+--header 'Authorization: Bearer <bearer token>' \
+--data '["0001"]'
 ```
 
-## Approch used to develop application
+## Approach used to develop application
 
 Test Driven Software Development methodology was followed.
 
